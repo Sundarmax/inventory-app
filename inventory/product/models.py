@@ -8,15 +8,15 @@ from supplier.models import Supplier
 
 class Category(models.Model):
     category_name = models.CharField(max_length=50)
-    description = models.TextField()
+    description = models.TextField(null=True,blank=True)
 
     def __str__(self):
-        pass
+        return self.category_name
 
 class Product(models.Model):
     product_name = models.CharField(max_length=40)
-    product_description = models.CharField(max_length=40)
-    product_unit = models.CharField(max_length=40)
+    product_description = models.CharField(max_length=40,blank=True,null=True)
+    product_unit = models.CharField(max_length=40,null=True,blank=True)
     product_price = models.FloatField()
     product_quantity = models.IntegerField()
     product_status = models.IntegerField()
