@@ -21,10 +21,17 @@ class Product(models.Model):
     product_quantity = models.IntegerField()
     product_status = models.IntegerField()
     product_category = models.ForeignKey(Category,on_delete=models.CASCADE)
-    product_supplier = models.ForeignKey(Supplier,on_delete=models.CASCADE)
+    product_supplier = models.ManyToManyField(Supplier,related_name="product_supplier_map",blank=True)
 
 
     def __str__(self):
         return self.product_name
     class Meta:
         ordering = ['-id']
+
+
+def get_all_suppliers():
+    suppliers = Product.objects.prefetch_related("product_supplier")
+
+    for sup in suppliers:
+        print(sup.product_supplier.all())
